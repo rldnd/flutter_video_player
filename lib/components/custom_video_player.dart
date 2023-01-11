@@ -127,19 +127,17 @@ class _Controls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height,
       color: Colors.black.withOpacity(0.5),
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            renderIconButton(
-                onPressed: onReversePressed, iconData: Icons.rotate_left),
-            renderIconButton(
-                onPressed: onPlayPressed,
-                iconData: isPlaying ? Icons.pause : Icons.play_arrow),
-            renderIconButton(
-                onPressed: onForwardPressed, iconData: Icons.rotate_right)
-          ]),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        renderIconButton(
+            onPressed: onReversePressed, iconData: Icons.rotate_left),
+        renderIconButton(
+            onPressed: onPlayPressed,
+            iconData: isPlaying ? Icons.pause : Icons.play_arrow),
+        renderIconButton(
+            onPressed: onForwardPressed, iconData: Icons.rotate_right)
+      ]),
     );
   }
 
