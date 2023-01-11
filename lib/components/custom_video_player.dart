@@ -6,7 +6,9 @@ import 'package:video_player/video_player.dart';
 
 class CustomVideoPlayer extends StatefulWidget {
   final XFile video;
-  const CustomVideoPlayer({super.key, required this.video});
+  final VoidCallback onNewVideoPressed;
+  const CustomVideoPlayer(
+      {super.key, required this.video, required this.onNewVideoPressed});
 
   @override
   State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
@@ -21,6 +23,15 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   void initState() {
     super.initState();
     initializeController();
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomVideoPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.video.path != widget.video.path) {
+      initializeController();
+    }
   }
 
   void initializeController() async {
@@ -63,7 +74,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
               ),
             if (showControls)
               _NewVideo(
-                onPressed: onNewVideoPressed,
+                onPressed: widget.onNewVideoPressed,
               ),
             _SliderBottom(
                 currentPosition: currentPosition,
@@ -114,8 +125,6 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   void onSliderChanged(double value) {
     videoController!.seekTo(Duration(seconds: value.toInt()));
   }
-
-  void onNewVideoPressed() {}
 }
 
 class _Controls extends StatelessWidget {
